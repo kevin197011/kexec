@@ -1,0 +1,7 @@
+---
+user: root
+key_path: ~/.ssh/id.key
+port: 22
+hosts: 
+ - 1.1.1.1
+ - 1.1.1.2
