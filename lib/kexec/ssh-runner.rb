@@ -19,7 +19,7 @@ module Kexec
         Thread.new do
           @@semaphore.acquire
           begin
-            runner = Kexec::SSHExecutor.new(host, config['user'], keys: [config['key_path']], port: config['port'])
+            runner = Kexec::SSHExecutor.new(host, config['user'], config['key_path'], config['port'])
             runner.execute(cmd)
           ensure
             @@semaphore.release
