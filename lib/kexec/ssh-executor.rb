@@ -6,11 +6,10 @@
 # https://opensource.org/licenses/MIT
 
 require 'net/ssh'
-require 'concurrent'
 
 module Kexec
   class SSHExecutor
-    def initialize(host, user, key_path, port=22)
+    def initialize(host, user, key_path, port = 22)
       @host = host
       @user = user
       @key_path = key_path

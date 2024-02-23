@@ -6,6 +6,11 @@
 # This software is released under the MIT License.
 # https://opensource.org/licenses/MIT
 
-require_relative '..lib/kexec'
+require_relative '../lib/kexec'
 
-config = Kexec::SSHConfig.load('config.yml')
+cmd = <<~EOS
+  ip addr
+  ls /tmp
+EOS
+
+Kexec::SSHRunner.run(cmd)
