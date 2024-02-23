@@ -8,9 +8,4 @@
 
 require_relative '../lib/kexec'
 
-cmd = <<~EOS
-  ip addr
-  ls /tmp
-EOS
-
-Kexec::SSHRunner.run(cmd)
+Kexec::SSHRunner.run
