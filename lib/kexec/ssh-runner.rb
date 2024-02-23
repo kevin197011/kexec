@@ -13,14 +13,14 @@ module Kexec
     @@max_concurrency = 5
     @@semaphore = Concurrent::Semaphore.new(@@max_concurrency)
 
-    def self.run(cmd)
+    def self.run
       config = Kexec::SSHConfig.load("#{__dir__}/../../config/config.yml")
       threads = config['hosts'].map do |host|
         Thread.new do
           @@semaphore.acquire
           begin
             runner = Kexec::SSHExecutor.new(host, config['user'], config['key_path'], config['port'])
-            runner.execute(cmd)
+            runner.execute(config['cmd'])
           ensure
             @@semaphore.release
           end
