@@ -14,7 +14,7 @@ module Kexec
     @@semaphore = Concurrent::Semaphore.new(@@max_concurrency)
 
     def self.run
-      config = Kexec::SSHConfig.load("#{__dir__}/../../config/config.yml")
+      config = Kexec::SSHConfig.load("#{__dir__}/../../config/kexec.yml")
 
       puts 'Kexec start =>'
       threads = config['hosts'].map do |host|
