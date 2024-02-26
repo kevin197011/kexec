@@ -15,6 +15,8 @@ module Kexec
 
     def self.run
       config = Kexec::SSHConfig.load("#{__dir__}/../../config/config.yml")
+
+      puts 'Kexec start =>'
       threads = config['hosts'].map do |host|
         Thread.new do
           @@semaphore.acquire
@@ -26,6 +28,7 @@ module Kexec
           end
         end
       end
+      
       threads.each(&:join)
     end
   end

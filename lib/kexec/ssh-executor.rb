@@ -23,16 +23,16 @@ module Kexec
             raise "Failed to exec command: #{command}" unless success
 
             channel.on_data do |_ch, data|
-              $stdout.print data
+              $stdout.print "  [#{@host}] => #{data}"
             end
 
             channel.on_extended_data do |_ch, _type, data|
-              $stderr.print data
+              $stderr.print "  [#{@host}] => #{data}"
             end
 
             channel.on_request('exit-status') do |_ch, data|
               exit_code = data.read_long
-              puts "Command exited with code: #{exit_code}"
+              puts "[#{@host}] command exited with code: #{exit_code}"
             end
           end
         end
