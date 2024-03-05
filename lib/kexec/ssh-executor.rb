@@ -20,7 +20,7 @@ module Kexec
       Net::SSH.start(@host, @user, keys: [@key_path], port: @port) do |ssh|
         ssh.open_channel do |channel|
           channel.exec(command) do |_ch, success|
-            raise "Failed to exec command: #{command}" unless success
+            raise "[#{@host}] failed to exec command: #{command}" unless success
 
             channel.on_data do |_ch, data|
               $stdout.print "  [#{@host}] => #{data}"
