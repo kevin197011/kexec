@@ -45,7 +45,7 @@ module Kexec
       remote_file = "/tmp/#{file}"
       Net::SSH.start(@host, @user, keys: [@key_path], port: @port) do |ssh|
         ssh.exec!("rm -rf #{remote_file}")
-        ssh.scp.upload!("script/#{file}", remote_file)
+        ssh.scp.upload!("#{__dir__}/../../script/#{file}", remote_file)
       end
     end
   end
