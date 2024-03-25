@@ -24,6 +24,7 @@ module Kexec
             runner = Kexec::SSHExecutor.new(host, config['user'], config['key_path'], config['port'])
             runner.upload!(config['script_path'])
             runner.execute("sudo bash /tmp/#{config['script_path']}")
+            runner.execute("sudo rm -rf /tmp/#{config['script_path']}")
           ensure
             @@semaphore.release
           end

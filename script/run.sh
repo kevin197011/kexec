@@ -11,6 +11,5 @@ set -o pipefail
 # vars
 
 # run code
-hello='/tmp/hello.txt'
-sudo echo '123' >${hello}
-sudo cat ${hello}
+export deploy_path="/root/.krun" && \
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/kevin197011/krun/main/deploy.sh)"
