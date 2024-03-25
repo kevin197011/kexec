@@ -11,7 +11,6 @@ set -o pipefail
 # vars
 
 # run code
-echo "hello world!"
 hello='/tmp/hello.txt'
-echo '123' >${hello}
-cat ${hello}
+sudo echo '123' >${hello}
+sudo cat ${hello}

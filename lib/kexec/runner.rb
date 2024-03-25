@@ -6,7 +6,7 @@
 # https://opensource.org/licenses/MIT
 
 require 'concurrent'
-require_relative 'ssh-executor'
+require_relative 'executor'
 
 module Kexec
   class SSHRunner
