@@ -16,10 +16,10 @@ module Kexec
       @port = port
     end
 
-    def execute(command)
+    def execute(cmd)
       Net::SSH.start(@host, @user, keys: [@key_path], port: @port) do |ssh|
         ssh.open_channel do |channel|
-          channel.exec(command) do |_ch, success|
+          channel.exec(cmd) do |_ch, success|
             raise "[#{@host}] failed to exec command: #{command}" unless success
 
             channel.on_data do |_ch, data|
@@ -38,6 +38,14 @@ module Kexec
         end
 
         ssh.loop
+      end
+    end
+
+    def upload!(file)
+      remote_file = "/tmp/#{file}"
+      Net::SSH.start(@host, @user, keys: [@key_path], port: @port) do |ssh|
+        ssh.exec!("rm -rf #{remote_file}")
+        ssh.scp.upload!("script/#{file}", remote_file)
       end
     end
   end

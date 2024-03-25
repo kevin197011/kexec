@@ -15,3 +15,7 @@ task :push do
   system 'git pull'
   system 'git push'
 end
+
+task :fmt do
+  system 'rubocop -A'
+end

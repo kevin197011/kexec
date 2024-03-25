@@ -1,6 +1,6 @@
 ---
 user: root
-key_path: ~/.ssh/id.key
+key_path: ~/.ssh/id_rsa
 port: 22
 hosts: 
  - 1.1.1.1
@@ -14,7 +14,4 @@ hosts:
  - 1.1.1.9
  - 1.1.1.10
 
-cmd: |-
-  /usr/sbin/ip addr
-  touch /tmp/hello.txt
-  ls /tmp
+script_path: run.sh
