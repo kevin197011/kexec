@@ -6,6 +6,7 @@
 # https://opensource.org/licenses/MIT
 
 require 'net/ssh'
+require 'net/scp'
 
 module Kexec
   class SSHExecutor
@@ -43,9 +44,13 @@ module Kexec
 
     def upload!(file)
       remote_file = "/tmp/#{file}"
+      
       Net::SSH.start(@host, @user, keys: [@key_path], port: @port) do |ssh|
         ssh.exec!("rm -rf #{remote_file}")
-        ssh.scp.upload!("#{__dir__}/../../script/#{file}", remote_file)
+      end
+
+      Net::SCP.start(@host, @user, keys: [@key_path], port: @port) do |scp|
+        scp.upload!("#{__dir__}/../../script/#{file}", remote_file)
       end
     end
   end
