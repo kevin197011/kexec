@@ -11,5 +11,7 @@ set -o pipefail
 # vars
 
 # run code
-sudo export deploy_path="/root/.krun" && \
-sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/kevin197011/krun/main/deploy.sh)"
+export deploy_path="/root/.krun"
+rm -rf deploy.sh
+wget https://raw.githubusercontent.com/kevin197011/krun/main/deploy.sh
+bash deploy.sh
