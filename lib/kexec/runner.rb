@@ -17,7 +17,7 @@ module Kexec
     def self.run
       config = Kexec::SSHConfig.load("#{__dir__}/../../config/kexec.yml")
 
-      self.banner
+      banner
       threads = config['hosts'].map do |host|
         Thread.new do
           @@semaphore.acquire
@@ -35,16 +35,15 @@ module Kexec
       threads.each(&:join)
     end
 
-    private
     def self.banner
-      puts '
+      puts <<~EOS
         _  __
         | |/ /_____  _____  ___
         | ' // _ \ \/ / _ \/ __|
         | . \  __/>  <  __/ (__
         |_|\_\___/_/\_\___|\___|
                       running...
-      '
+      EOS
     end
   end
 end
