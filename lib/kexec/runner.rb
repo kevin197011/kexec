@@ -36,14 +36,15 @@ module Kexec
     end
 
     def self.banner
-      puts <<~EOS
+      ascii_art = <<~'ASCII'
         _  __
         | |/ /_____  _____  ___
         | ' // _ \ \/ / _ \/ __|
         | . \  __/>  <  __/ (__
         |_|\_\___/_/\_\___|\___|
                       running...
-      EOS
+      ASCII
+      puts ascii_art
     end
   end
 end
