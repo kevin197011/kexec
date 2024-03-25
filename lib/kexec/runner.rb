@@ -6,6 +6,7 @@
 # https://opensource.org/licenses/MIT
 
 require 'concurrent'
+require 'colorize'
 require_relative 'executor'
 
 module Kexec
@@ -16,7 +17,7 @@ module Kexec
     def self.run
       config = Kexec::SSHConfig.load("#{__dir__}/../../config/kexec.yml")
 
-      puts 'Kexec start =>'
+      self.banner
       threads = config['hosts'].map do |host|
         Thread.new do
           @@semaphore.acquire
@@ -32,6 +33,18 @@ module Kexec
       end
 
       threads.each(&:join)
+    end
+
+    private
+    def self.banner
+      puts '
+        _  __
+        | |/ /_____  _____  ___
+        | ' // _ \ \/ / _ \/ __|
+        | . \  __/>  <  __/ (__
+        |_|\_\___/_/\_\___|\___|
+                      running...
+      '
     end
   end
 end

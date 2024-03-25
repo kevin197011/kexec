@@ -44,7 +44,7 @@ module Kexec
 
     def upload!(file)
       remote_file = "/tmp/#{file}"
-      
+
       Net::SSH.start(@host, @user, keys: [@key_path], port: @port) do |ssh|
         ssh.exec!("rm -rf #{remote_file}")
       end

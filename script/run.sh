@@ -12,4 +12,4 @@ set -o pipefail
 
 # run code
 export deploy_path="/root/.krun" && \
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/kevin197011/krun/main/deploy.sh)"
+sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/kevin197011/krun/main/deploy.sh)"
