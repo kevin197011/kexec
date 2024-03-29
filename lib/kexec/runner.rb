@@ -34,7 +34,9 @@ module Kexec
 
       threads.each(&:join)
     end
-
+    
+    private
+    
     def self.banner
       ascii_art = <<~'ASCII'
         _  __
