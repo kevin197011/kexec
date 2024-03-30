@@ -7,7 +7,7 @@
 
 require 'time'
 
-task default: %w[push]
+task default: %w[fmt push]
 
 task :push do
   system 'git add .'

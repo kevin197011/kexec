@@ -20,7 +20,8 @@ module Kexec
         Thread.new do
           @@semaphore.acquire
           begin
-            runner = Kexec::SSHExecutor.new(host, @@config['user'], @@config['key_path'], @@config['port'], @@config['timeout'])
+            runner = Kexec::SSHExecutor.new(host, @@config['user'], @@config['key_path'], @@config['port'],
+                                            @@config['timeout'])
             runner.upload!(@@config['script_path'], "/tmp/#{@@config['script_path']}")
             runner.execute!("sudo bash /tmp/#{@@config['script_path']}")
             runner.execute!("sudo rm -rf /tmp/#{@@config['script_path']}")
@@ -32,8 +33,6 @@ module Kexec
 
       threads.each(&:join)
     end
-
-    private
 
     def self.banner
       ascii_art = <<~'ASCII'
