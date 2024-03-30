@@ -2,6 +2,8 @@
 user: root
 key_path: ~/.ssh/id_rsa
 port: 22
+max_concurrency: 5
+timeout: 10
 hosts:
  - 1.1.1.1
  - 1.1.1.2

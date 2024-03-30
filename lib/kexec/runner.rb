@@ -11,21 +11,20 @@ require_relative 'executor'
 
 module Kexec
   class SSHRunner
-    @@max_concurrency = 5
+    @@config = Kexec::SSHConfig.load("#{__dir__}/../../config/kexec.yml")
+    @@max_concurrency = @@config['max_concurrency']
     @@semaphore = Concurrent::Semaphore.new(@@max_concurrency)
 
     def self.run
-      config = Kexec::SSHConfig.load("#{__dir__}/../../config/kexec.yml")
-
       banner
-      threads = config['hosts'].map do |host|
+      threads = @@config['hosts'].map do |host|
         Thread.new do
           @@semaphore.acquire
           begin
-            runner = Kexec::SSHExecutor.new(host, config['user'], config['key_path'], config['port'])
-            runner.upload!(config['script_path'], "/tmp/#{config['script_path']}")
-            runner.execute!("sudo bash /tmp/#{config['script_path']}")
-            runner.execute!("sudo rm -rf /tmp/#{config['script_path']}")
+            runner = Kexec::SSHExecutor.new(host, @@config['user'], @@config['key_path'], @@config['port'], @@config['timeout'])
+            runner.upload!(@@config['script_path'], "/tmp/#{@@config['script_path']}")
+            runner.execute!("sudo bash /tmp/#{@@config['script_path']}")
+            runner.execute!("sudo rm -rf /tmp/#{@@config['script_path']}")
           ensure
             @@semaphore.release
           end
@@ -34,9 +33,9 @@ module Kexec
 
       threads.each(&:join)
     end
-    
+
     private
-    
+
     def self.banner
       ascii_art = <<~'ASCII'
         _  __

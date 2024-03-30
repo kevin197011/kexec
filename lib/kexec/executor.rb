@@ -10,15 +10,19 @@ require 'net/scp'
 
 module Kexec
   class SSHExecutor
-    def initialize(host, user, key_path, port = 22)
+    def initialize(host, user, key_path, port = 22, timeout = 10)
       @host = host
       @user = user
       @key_path = key_path
       @port = port
+      @timeout = timeout
     end
 
     def execute!(cmd)
-      Net::SSH.start(@host, @user, keys: [@key_path], port: @port) do |ssh|
+      options = {
+        timeout: @timeout
+      }
+      Net::SSH.start(@host, @user, keys: [@key_path], port: @port, options) do |ssh|
         ssh.open_channel do |channel|
           channel.exec(cmd) do |_ch, success|
             raise "[#{@host}] failed to exec command: #{command}" unless success
@@ -43,11 +47,14 @@ module Kexec
     end
 
     def upload!(file, remote_file)
-      Net::SSH.start(@host, @user, keys: [@key_path], port: @port) do |ssh|
+      options = {
+        timeout: @timeout
+      }
+      Net::SSH.start(@host, @user, keys: [@key_path], port: @port, options) do |ssh|
         ssh.exec!("rm -rf #{remote_file}")
       end
 
-      Net::SCP.start(@host, @user, keys: [@key_path], port: @port) do |scp|
+      Net::SCP.start(@host, @user, keys: [@key_path], port: @port, options) do |scp|
         scp.upload!("#{__dir__}/../../script/#{file}", remote_file)
       end
     end
