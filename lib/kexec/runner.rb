@@ -12,8 +12,7 @@ require_relative 'executor'
 module Kexec
   class SSHRunner
     @@config = Kexec::SSHConfig.load("#{__dir__}/../../config/kexec.yml")
-    @@max_concurrency = @@config['max_concurrency']
-    @@semaphore = Concurrent::Semaphore.new(@@max_concurrency)
+    @@semaphore = Concurrent::Semaphore.new(@@config['max_concurrency'])
 
     def self.run
       banner
