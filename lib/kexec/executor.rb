@@ -19,11 +19,7 @@ module Kexec
     end
 
     def execute!(cmd)
-      options = {
-        timeout: @timeout
-      }
-
-      Net::SSH.start(@host, @user, keys: [@key_path], port: @port, optins: options) do |ssh|
+      Net::SSH.start(@host, @user, keys: [@key_path], port: @port, timeout: @timeout) do |ssh|
         ssh.open_channel do |channel|
           channel.exec(cmd) do |_ch, success|
             raise "[#{@host}] failed to exec command: #{command}" unless success
@@ -45,20 +41,20 @@ module Kexec
 
         ssh.loop
       end
+    rescue Net::SSH::Timeout
+      puts "SSH connection timed out to #{@host}"
     end
 
     def upload!(file, remote_file)
-      options = {
-        timeout: @timeout
-      }
-
-      Net::SSH.start(@host, @user, keys: [@key_path], port: @port, optins: options) do |ssh|
+      Net::SSH.start(@host, @user, keys: [@key_path], port: @port, timeout: @timeout) do |ssh|
         ssh.exec!("rm -rf #{remote_file}")
       end
 
-      Net::SCP.start(@host, @user, keys: [@key_path], port: @port, optins: options) do |scp|
+      Net::SCP.start(@host, @user, keys: [@key_path], port: @port, timeout: @timeout) do |scp|
         scp.upload!("#{__dir__}/../../script/#{file}", remote_file)
       end
+    rescue Net::SSH::Timeout
+      puts "SSH connection timed out to #{@host}"
     end
   end
 end
