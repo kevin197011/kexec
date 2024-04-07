@@ -12,6 +12,4 @@ set -o pipefail
 
 # run code
 export deploy_path="/root/.krun"
-rm -rf deploy.sh
-wget https://raw.githubusercontent.com/kevin197011/krun/main/deploy.sh
-bash deploy.sh
+curl -sSL https://raw.githubusercontent.com/kevin197011/krun/main/deploy.sh | bash
