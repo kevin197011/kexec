@@ -23,7 +23,7 @@ module Kexec
         timeout: @timeout
       }
 
-      Net::SSH.start(@host, @user, keys: [@key_path], port: @port, options) do |ssh|
+      Net::SSH.start(@host, @user, keys: [@key_path], port: @port, optins: options) do |ssh|
         ssh.open_channel do |channel|
           channel.exec(cmd) do |_ch, success|
             raise "[#{@host}] failed to exec command: #{command}" unless success
@@ -51,12 +51,12 @@ module Kexec
       options = {
         timeout: @timeout
       }
-      
-      Net::SSH.start(@host, @user, keys: [@key_path], port: @port, options) do |ssh|
+
+      Net::SSH.start(@host, @user, keys: [@key_path], port: @port, optins: options) do |ssh|
         ssh.exec!("rm -rf #{remote_file}")
       end
 
-      Net::SCP.start(@host, @user, keys: [@key_path], port: @port, options) do |scp|
+      Net::SCP.start(@host, @user, keys: [@key_path], port: @port, optins: options) do |scp|
         scp.upload!("#{__dir__}/../../script/#{file}", remote_file)
       end
     end
