@@ -5,6 +5,7 @@ kexec
 
 ```bash
 git clone https://github.com/kevin197011/kexec.git
+cd kexec && bundle install
 ```
 
 ## config
