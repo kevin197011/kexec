@@ -11,5 +11,7 @@ set -o pipefail
 # vars
 
 # run code
-export deploy_path="/root/.krun"
-curl -sSL https://raw.githubusercontent.com/kevin197011/krun/main/deploy.sh | bash
+# export deploy_path="/root/.krun"
+# curl -sSL https://raw.githubusercontent.com/kevin197011/krun/main/deploy.sh | bash
+
+ps aux

@@ -42,6 +42,7 @@ module Kexec
         | . \  __/>  <  __/ (__
         |_|\_\___/_/\_\___|\___|
                       running...
+                      
       ASCII
       puts ascii_art
     end
