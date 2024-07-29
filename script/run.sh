@@ -12,6 +12,6 @@ set -o pipefail
 
 # run code
 # export deploy_path="/root/.krun"
-# curl -sSL https://raw.githubusercontent.com/kevin197011/krun/main/deploy.sh | bash
-
+curl -sSL https://raw.githubusercontent.com/kevin197011/krun/main/deploy.sh | bash
+krun install-docker.sh
 ps aux
