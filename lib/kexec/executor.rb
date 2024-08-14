@@ -34,7 +34,7 @@ module Kexec
 
             channel.on_request('exit-status') do |_ch, data|
               exit_code = data.read_long
-              puts "[#{@host}] command exited with code: #{exit_code}"
+              # puts "[#{@host}] command exited with code: #{exit_code}"
             end
           end
         end
