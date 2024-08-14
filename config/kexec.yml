@@ -5,6 +5,11 @@ port: 22
 max_concurrency: 5
 timeout: 10
 hosts:
- - localhost
+- localhost01
+- localhost02
+- localhost03
+- localhost04
+- localhost05
+- localhost06
 
 script_path: run.sh
